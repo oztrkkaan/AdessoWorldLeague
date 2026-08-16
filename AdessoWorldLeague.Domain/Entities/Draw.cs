@@ -55,7 +55,7 @@ public class Draw
         DrawGroups = drawGroups;
     }
 
-    public void SetCreatorFullName(string creatorFullName)
+    private void SetCreatorFullName(string creatorFullName)
     {
         if (string.IsNullOrEmpty(creatorFullName))
         {
@@ -64,7 +64,7 @@ public class Draw
 
         CreatorFullName = creatorFullName;
     }
-    public void ThrowIfInvalidGroupCount(int groupCount)
+    private void ThrowIfInvalidGroupCount(int groupCount)
     {
         if (!DrawConstants.AcceptableGroupCounts.Contains(groupCount))
         {
@@ -72,7 +72,7 @@ public class Draw
         }
     }
 
-    public void ThrowIfInvalidTeamCount(int teamCount)
+    private void ThrowIfInvalidTeamCount(int teamCount)
     {
         if (teamCount != DrawConstants.MaxTeamsCount)
         {
