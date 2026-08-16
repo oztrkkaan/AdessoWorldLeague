@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdessoWorldLeague.Domain\AdessoWorldLeague.Domain.csproj" />
+    <ProjectReference Include="..\AdessoWorldLeague.Infrastructure\AdessoWorldLeague.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

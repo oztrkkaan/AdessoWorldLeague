@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdessoWorldLeague.Infrastructure\AdessoWorldLeague.Infrastructure.csproj" />
+    <ProjectReference Include="..\AdessoWorldLeague.Application\AdessoWorldLeague.Application.csproj" />
   </ItemGroup>
 
 </Project>
