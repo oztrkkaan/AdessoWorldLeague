@@ -1,3 +1,4 @@
+using AdessoWorldLeague.Api.Middlewares;
 using AdessoWorldLeague.Application.Behaviors;
 using AdessoWorldLeague.Application.Features.MakeDraw;
 using AdessoWorldLeague.Infrastructure.Persistence;
@@ -35,6 +36,8 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "AdessoWorldLeague API v1");
     });
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
