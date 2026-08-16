@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="AdessoWorldLeague.Api/AdessoWorldLeague.Api.csproj" />
+  <Project Path="AdessoWorldLeague.Application/AdessoWorldLeague.Application.csproj" />
+  <Project Path="AdessoWorldLeague.Infrastructure/AdessoWorldLeague.Infrastructure.csproj" />
 </Solution>
