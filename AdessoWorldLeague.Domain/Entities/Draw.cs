@@ -3,8 +3,6 @@ namespace AdessoWorldLeague.Domain.Entities;
 
 public class Draw
 {
-    public readonly int[] AcceptableGroupCounts = [4, 8];
-    public string[] groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
     public Draw(string creatorFullName)
     {
@@ -23,7 +21,7 @@ public class Draw
         ThrowIfInvalidGroupCount(groupCount);
         ThrowIfInvalidTeamCount(teams.Count);
 
-        List<DrawGroup> drawGroups = groupNames
+        List<DrawGroup> drawGroups = DrawConstants.GroupNames
             .Take(groupCount)
             .Select(groupName => new DrawGroup(groupName, this.Id))
             .ToList();
@@ -68,9 +66,9 @@ public class Draw
     }
     public void ThrowIfInvalidGroupCount(int groupCount)
     {
-        if (!AcceptableGroupCounts.Contains(groupCount))
+        if (!DrawConstants.AcceptableGroupCounts.Contains(groupCount))
         {
-            throw new ArgumentException($"Group count must be one of the following values: {string.Join(", ", AcceptableGroupCounts)}");
+            throw new ArgumentException($"Group count must be one of the following values: {string.Join(", ", DrawConstants.AcceptableGroupCounts)}");
         }
     }
 

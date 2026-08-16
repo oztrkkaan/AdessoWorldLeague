@@ -1,5 +1,8 @@
+using AdessoWorldLeague.Application.Behaviors;
 using AdessoWorldLeague.Application.Features.MakeDraw;
 using AdessoWorldLeague.Infrastructure.Persistence;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<MakeDrawCommand>());
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<MakeDrawCommand>();
+    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+});
+
+builder.Services.AddValidatorsFromAssemblyContaining<MakeDrawCommand>();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
