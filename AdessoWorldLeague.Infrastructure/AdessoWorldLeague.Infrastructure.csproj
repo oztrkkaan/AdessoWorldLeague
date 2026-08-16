@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdessoWorldLeague.Domain\AdessoWorldLeague.Domain.csproj" />
+    <ProjectReference Include="..\AdessoWorldLeague.Application\AdessoWorldLeague.Application.csproj" />
   </ItemGroup>
 
 </Project>

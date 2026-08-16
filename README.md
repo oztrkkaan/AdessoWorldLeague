@@ -21,6 +21,33 @@ Dünya Ligi kura çekimi simülasyonu yapan bir .NET 10 Web API projesidir.
 | **Infrastructure** | EF Core DbContext, entity konfigürasyonları, migration'lar |
 | **Api** | Controller'lar, middleware'ler, DI konfigürasyonu, Swagger |
 
+### Katman Bağımlılık Diyagramı
+
+```
+┌──────────────────────────────────────────┐
+│                  Api                     │
+│        (Presentation Layer)              │
+└──────────┬───────────────┬───────────────┘
+           │               │
+           ▼               ▼
+┌─────────────────┐   ┌──────────────────┐
+│   Application   │   │  Infrastructure  │
+│  (Use Cases)    │   │  (EF Core, DB)   │
+└────────┬────────┘   └────────┬─────────┘
+         │                     │
+         │                     │
+         ▼                     │
+┌─────────────────┐            │
+│     Domain      │◄───────────┘
+│ (Entities/Rules)│
+└─────────────────┘
+```
+
+**Bağımlılık Kuralı:** Oklar bağımlılık yönünü gösterir. İç katmanlar dış katmanları bilmez.
+- `Api` → `Application`, `Infrastructure`
+- `Infrastructure` → `Application` → `Domain`
+- `Domain` hiçbir katmana bağımlı değildir.
+
 ## Projeyi Ayağa Kaldırma
 
 ### Gereksinimler

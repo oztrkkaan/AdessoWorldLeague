@@ -1,11 +1,11 @@
+using AdessoWorldLeague.Application.Abstractions;
 using AdessoWorldLeague.Domain.Entities;
-using AdessoWorldLeague.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdessoWorldLeague.Application.Features.MakeDraw;
 
-public class MakeDrawCommandHandler(AppDbContext dbContext) : IRequestHandler<MakeDrawCommand, MakeDrawResponse>
+public class MakeDrawCommandHandler(IApplicationDbContext dbContext) : IRequestHandler<MakeDrawCommand, MakeDrawResponse>
 {
     public async Task<MakeDrawResponse> Handle(MakeDrawCommand request, CancellationToken cancellationToken)
     {
