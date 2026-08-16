@@ -14,8 +14,6 @@ public class DrawGroup
     public string GroupName { get; init; } = null!;
     public Guid DrawId { get; set; }
 
-    public Draw Draw { get; private set; } = null!;
-
-    public List<Team> Teams { get; private set; } = [];
+    public virtual Draw Draw { get; private set; } = null!;
     public List<DrawTeamAssignment> DrawTeamAssignments { get; private set; } = [];
 }

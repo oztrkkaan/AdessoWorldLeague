@@ -15,51 +15,46 @@ public class Draw
 
     public Guid Id { get; init; } = Guid.CreateVersion7();
     public string CreatorFullName { get; private set; } = null!;
-    public List<DrawTeamAssignment> DrawTeamAssignments { get; private set; } = [];
-    public List<DrawGroup> DrawGroups { get; private set; } = [];
+    public ICollection<DrawGroup> DrawGroups { get; private set; } = [];
 
 
-    public void Make(List<Country> countries, int groupCount)
+    public void Make(List<Team> teams, int groupCount)
     {
         ThrowIfInvalidGroupCount(groupCount);
+        ThrowIfInvalidTeamCount(teams.Count);
 
-        int teamsCount = countries.Sum(c => c.Teams.Count);
-        ThrowIfInvalidTeamCount(teamsCount);
-
-        List<DrawGroup> groups = groupNames
+        List<DrawGroup> drawGroups = groupNames
             .Take(groupCount)
             .Select(groupName => new DrawGroup(groupName, this.Id))
             .ToList();
 
-        List<DrawTeamAssignment> drawTeamAssignments = [];
+        var assignedTeamIds = new HashSet<int>();
+        int teamsPerGroup = teams.Count / groupCount;
 
-        for (int i = 0; i < teamsCount; i++)
+        for (int round = 0; round < teamsPerGroup; round++)
         {
-            int groupIndex = i % groupCount;
+            for (int groupIndex = 0; groupIndex < groupCount; groupIndex++)
+            {
+                var drawGroup = drawGroups[groupIndex];
 
-            var group = groups[groupIndex];
+                var existingCountryIds = drawGroup.DrawTeamAssignments
+                    .Select(a => teams.First(t => t.Id == a.TeamId).CountryId)
+                    .ToHashSet();
 
-            var existingCountriesInGroup = group.Teams
-                .Select(t => t.CountryId)
-                .ToHashSet();
-            var existingTeamIdsInGroup = group.Teams
-                .Select(t => t.Id)
-                .ToHashSet();
+                var randomizedTeam = teams
+                    .Where(t => !assignedTeamIds.Contains(t.Id) && !existingCountryIds.Contains(t.CountryId))
+                    .OrderBy(_ => Guid.NewGuid())
+                    .FirstOrDefault();
 
-            var randomizedTeam = countries
-                .Where(c => !existingCountriesInGroup.Contains(c.Id) && !existingTeamIdsInGroup.Contains(c.Id))
-                .SelectMany(c => c.Teams)
-                .OrderBy(t => Guid.NewGuid())
-                .FirstOrDefault()!;
+                if (randomizedTeam is null)
+                    throw new InvalidOperationException($"No eligible team found for group {drawGroup.GroupName} in round {round + 1}.");
 
-            group.Teams.Add(randomizedTeam);
-
-            drawTeamAssignments.Add(new(drawId: this.Id,
-                                        drawGroup: group,
-                                        teamId: randomizedTeam.Id));
+                drawGroup.DrawTeamAssignments.Add(new(drawGroup: drawGroup, teamId: randomizedTeam.Id));
+                assignedTeamIds.Add(randomizedTeam.Id);
+            }
         }
 
-        DrawTeamAssignments = drawTeamAssignments;
+        DrawGroups = drawGroups;
     }
 
     public void SetCreatorFullName(string creatorFullName)

@@ -1,5 +1,17 @@
 <Solution>
+  <Folder Name="/.github/">
+    <File Path=".github/copilot-instructions.md" />
+  </Folder>
+  <Folder Name="/docs/" />
+  <Folder Name="/docs/architecture/">
+    <File Path="docs/architecture/api.md" />
+    <File Path="docs/architecture/application.md" />
+    <File Path="docs/architecture/domain.md" />
+    <File Path="docs/architecture/infrastructure.md" />
+    <File Path="docs/architecture/README.md" />
+  </Folder>
   <Project Path="AdessoWorldLeague.Api/AdessoWorldLeague.Api.csproj" />
   <Project Path="AdessoWorldLeague.Application/AdessoWorldLeague.Application.csproj" />
+  <Project Path="AdessoWorldLeague.Domain/AdessoWorldLeague.Domain.csproj" />
   <Project Path="AdessoWorldLeague.Infrastructure/AdessoWorldLeague.Infrastructure.csproj" />
 </Solution>

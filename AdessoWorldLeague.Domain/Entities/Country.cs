@@ -12,6 +12,6 @@
 
         public int Id { get; init; }
         public string Name { get; init; } = null!;
-        public List<Team> Teams { get; private set; } = [];
+        public ICollection<Team>? Teams { get; private set; } = [];
     }
 }
