@@ -1,0 +1,4 @@
+- This is a .NET 10 / C# project.
+- Prefer concise and idiomatic C#.
+- Do not modify files unless the user explicitly asks for implementation or changes.
+- When implementing or modifying code, follow the architecture rules documented in docs/architecture.md.
