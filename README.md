@@ -48,6 +48,41 @@ Dünya Ligi kura çekimi simülasyonu yapan bir .NET 10 Web API projesidir.
 - `Infrastructure` → `Application` → `Domain`
 - `Domain` hiçbir katmana bağımlı değildir.
 
+## Testler
+
+Tüm testler `tests/` klasöründe, katman başına ayrı projeler halinde konumlanmıştır.
+
+```bash
+dotnet test AdessoWorldLeague.slnx
+```
+
+**Sonuç: 195 test, tamamı başarılı (0 başarısız, 0 atlanan).**
+
+| Test Projesi | Test Sayısı | Kapsam |
+|--------------|:-----------:|--------|
+| `AdessoWorldLeague.Domain.Tests` | 65 | Kura algoritması (`Draw.Make`), entity iş kuralları, domain sabitleri |
+| `AdessoWorldLeague.Application.Tests` | 49 | `MakeDrawCommandHandler`, FluentValidation kuralları, `ValidationBehavior` |
+| `AdessoWorldLeague.Infrastructure.Tests` | 45 | EF Core konfigürasyonları, seed verisi, FK/cascade/unique kısıtları |
+| `AdessoWorldLeague.Architecture.Tests` | 36 | Katman bağımlılık yönü, framework yalıtımı, isimlendirme kuralları |
+| **Toplam** | **195** | |
+
+### Doğrulanan Başlıca Kurallar
+
+- **Ülke kısıtı:** Hiçbir grupta aynı ülkeden iki takım bulunmaz (4 ve 8 grup için ayrı ayrı).
+- **Dağıtım:** 32 takımın tamamı birer kez atanır ve gruplara eşit dağılır.
+- **Çekiliş sırası:** Takımlar sırayla A → B → C… gruplarına çekilir, son gruptan sonra başa dönülür.
+- **Rastgelelik:** Ardışık çekilişler farklı dağılımlar üretir.
+- **Kura hiçbir zaman çıkmaza girmez:** Her iki grup sayısı için 500'er çekiliş hatasız tamamlanır.
+- **Mimari:** `Domain` yalnızca BCL'e bağımlıdır; EF Core, MediatR, FluentValidation veya ASP.NET referansı içermez. `Application` somut `DbContext` yerine `IApplicationDbContext` soyutlamasını kullanır.
+
+### Test Altyapısı
+
+- **xUnit** — test çatısı
+- **NSubstitute** — `ValidationBehavior` testlerinde `IValidator` sahteleme
+- **EF Core InMemory** — Application katmanı testleri (Infrastructure'a bağımlılık olmadan)
+- **EF Core SQLite (in-memory)** — Infrastructure testleri; gerçek `AppDbContext` ilişkisel sağlayıcı üzerinde çalıştığından cascade delete ve unique index gibi kısıtlar fiilen doğrulanır
+- **NetArchTest.Rules** — mimari bağımlılık kuralları
+
 ## Projeyi Ayağa Kaldırma
 
 ### Gereksinimler

@@ -10,6 +10,12 @@
     <File Path="docs/architecture/infrastructure.md" />
     <File Path="docs/architecture/README.md" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AdessoWorldLeague.Application.Tests/AdessoWorldLeague.Application.Tests.csproj" />
+    <Project Path="tests/AdessoWorldLeague.Architecture.Tests/AdessoWorldLeague.Architecture.Tests.csproj" />
+    <Project Path="tests/AdessoWorldLeague.Domain.Tests/AdessoWorldLeague.Domain.Tests.csproj" />
+    <Project Path="tests/AdessoWorldLeague.Infrastructure.Tests/AdessoWorldLeague.Infrastructure.Tests.csproj" />
+  </Folder>
   <Project Path="AdessoWorldLeague.Api/AdessoWorldLeague.Api.csproj" />
   <Project Path="AdessoWorldLeague.Application/AdessoWorldLeague.Application.csproj" />
   <Project Path="AdessoWorldLeague.Domain/AdessoWorldLeague.Domain.csproj" />

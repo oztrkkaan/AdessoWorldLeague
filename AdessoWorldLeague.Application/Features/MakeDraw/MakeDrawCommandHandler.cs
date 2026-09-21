@@ -22,7 +22,7 @@ public class MakeDrawCommandHandler(IApplicationDbContext dbContext) : IRequestH
         var groups = draw.DrawGroups.Select(g => new DrawGroupDto(
             g.GroupName,
             g.DrawTeamAssignments
-                .Select(a => teams.First(t => t.Id == a.TeamId).Name)
+                .Select(a => new DrawTeamDto(teams.First(t => t.Id == a.TeamId).Name))
                 .ToList()
         )).ToList();
 

@@ -58,7 +58,7 @@ public class TeamConfiguration : IEntityTypeConfiguration<Team>
         new { Id = 29, Name = "Adesso Madrid", CountryId = 8 },
         new { Id = 30, Name = "Adesso Barselona", CountryId = 8 },
         new { Id = 31, Name = "Adesso Sevilla", CountryId = 8 },
-        new { Id = 32, Name = "Adesso Valencia", CountryId = 8 }
+        new { Id = 32, Name = "Adesso Granada", CountryId = 8 }
     );
     }
 }
